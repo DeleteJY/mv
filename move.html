@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+* {margin:0; padding:0;}
+#div1 {position:relative; border:1px solid black; width:680px; height:132px; margin:10px auto; overflow:hidden;}
+#div1 ul {position:absolute; left:0;}
+#div1 ul li {list-style:none; float:left; width:150px; height:112px; padding:10px;}
+#div1 ul li img {width:150px;}
+</style>
+<script>
+window.onload=function(){
+	//获取元素
+	
+	var oDiv=document.getElementById('div1');
+	var oUl=oDiv.getElementsByTagName('ul')[0];
+	var oLi=oUl.getElementsByTagName('li');
+	
+	// 复制一组图片
+	oUl.innerHTML+=oUl.innerHTML;
+	
+	// 定义ul 的宽度 （样式里不能写宽度 宽度不好控制）
+	oUl.style.width=oLi.length*oLi[0].offsetWidth+'px';
+	
+	//定义速度
+	var speed=10;
+	
+	function domove(){
+		if(oUl.offsetLeft>0)
+		  {
+		   oUl.style.left=-oUl.offsetWidth/2+'px';
+		  }
+		  else if(oUl.offsetLeft<-oUl.offsetWidth/2)
+		  {
+			  oUl.style.left=0;
+		  }
+		  
+	    
+		oUl.style.left=oUl.offsetLeft+speed+'px'
+		}
+
+	
+	oDiv.timer=setInterval(domove,30)
+	
+	
+	oUl.onmouseover=function(){
+		
+		clearInterval(oDiv.timer)
+		}
+	oUl.onmouseout=function(){
+		
+		oDiv.timer=setInterval(domove,30)
+		}
+	}
+
+</script>
+</head>
+
+<body>
+<a href="javascript:;">←</a>
+<a href="javascript:;">→</a>
+<div id="div1">
+	<ul>
+    	<li><img src="img/1.jpg" /></li>
+    	<li><img src="img/2.jpg" /></li>
+    	<li><img src="img/3.jpg" /></li>
+    	<li><img src="img/4.jpg" /></li>
+    </ul>
+</div>
+</body>
+</html>
